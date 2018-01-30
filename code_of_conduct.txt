@@ -1,0 +1,2 @@
+Team Policies
+Contributing: An issue (or issues) should be created before coding work begins.  Contributors should fork the main repository and create a branch to work out of.  After coding has been completed and tested, a pull request should be created to merge the branch into the main development branch (remember to reference any relevant issues when completing a pull request).  Following a successful code review, the pull request should be merged and any relevant issues closed.  The branch merged into development can also be deleted at this time.
