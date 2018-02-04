@@ -8,7 +8,7 @@ cache:
 before_install:
   - mkdir download
   - wget http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O $HOME/download/miniconda.sh
-  - bash $HOME/download/miniconda.sh -b -p $HOME/miniconda
+  - bash $HOME/download/miniconda.sh -b -p -u $HOME/miniconda
   - export PATH="$HOME/miniconda/bin:$PATH"
   - conda env create -f environment.yml -v -v
 
