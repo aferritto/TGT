@@ -1,0 +1,6 @@
+This file will contain a list of relevant research papers to our project, as well as a brief description of the findings in each paper than may benefit the project. 
+-----------------------------------------------------------------
+
+http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=5585913
+
+This paper uses a basic genetic algorithm to generate terrain. It's fitness algorithm involves user input, requiring a human to select the best results. 
