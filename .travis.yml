@@ -10,7 +10,7 @@ install:
   - source activate tgt
 
 script:
-  - python -m pytest
+  - python -m pytest --cov=tgt tests/
   - pycodestyle tgt/
   - pycodestyle tests/
 
