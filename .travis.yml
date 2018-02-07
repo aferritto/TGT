@@ -11,8 +11,8 @@ install:
 
 script:
   - python -m pytest --cov=tgt tests/
-  - pycodestyle tgt/
-  - pycodestyle tests/
+  - pycodestyle --show-source tgt/
+  - pycodestyle --show-source tests/
 
 after_success:
   - coveralls
