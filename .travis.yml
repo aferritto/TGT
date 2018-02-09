@@ -10,9 +10,9 @@ install:
   - source activate tgt
 
 script:
-  - python -m pytest
-  - pycodestyle tgt/
-  - pycodestyle tests/
+  - python -m pytest --cov=tgt tests/
+  - pycodestyle --show-source tgt/
+  - pycodestyle --show-source tests/
 
 after_success:
   - coveralls
