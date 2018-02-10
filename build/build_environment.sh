@@ -48,10 +48,13 @@ if [[ $condaA != $condaB ]]; then
   install_conda
   set_conda_path
   create_environment "new"
+  cp environment.yml $HOME/cached/environment.yml
+  cp $HOME/downloads/miniconda.sh $HOME/cached/miniconda.sh
 elif [[ $envA != $envB ]]; then
   echo "Rebuilding env"
   set_conda_path
   create_environment "update"
+  cp environment.yml $HOME/cached/environment.yml
 else
   echo "Using cached conda and env"
   set_conda_path
