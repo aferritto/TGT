@@ -37,10 +37,14 @@ if [ ! -f $HOME/cached/miniconda.sh ]; then
   cp $HOME/downloads/miniconda.sh $HOME/cached/miniconda.sh
 fi
 
+ls -al $HOME/cached
+ls -al $HOME/downloads
+ls -al environment.yml
+
 
 # Look for changes and update accordingly
-condaDiff=$(cmp $HOME/downloads/miniconda.sh $HOME/cached/miniconda.sh)
-envDiff=$(cmp environment.yml $HOME/cached/environment.yml)
+condaDiff=$(cmp -s $HOME/downloads/miniconda.sh $HOME/cached/miniconda.sh)
+envDiff=$(cmp -s environment.yml $HOME/cached/environment.yml)
 echo "$condaDiff"
 echo "$envDiff"
 
