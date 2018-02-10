@@ -16,7 +16,7 @@ create_environment() {
     elif [[ $1 == "new" ]]; then
       conda env create -v -f environment.yml
     else
-      >&2 echo 'Error: arg 1 must be "new" or "update"'
+      >&2 echo "Error: arg 1 must be "new" or "update""
       exit 1
     fi
 }
