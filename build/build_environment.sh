@@ -26,31 +26,20 @@ echo "$PATH"
 
 wget http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O $HOME/downloads/miniconda.sh
 
-# Create copies of files is non-existent
-if [ ! -f $HOME/cached/environment.yml ]; then
-  echo "Creating cached copy of environment.yml"
-  cp environment.yml $HOME/cached/environment.yml
-fi
-
-if [ ! -f $HOME/cached/miniconda.sh ]; then
-  echo "Creating cached copy of miniconda.sh"
-  cp $HOME/downloads/miniconda.sh $HOME/cached/miniconda.sh
-fi
-
 # Compare md5 sums of new and existing files
 condaA=($(md5sum $HOME/downloads/miniconda.sh))
 condaB=($(md5sum $HOME/cached/miniconda.sh))
 envA=($(md5sum environment.yml))
 envB=($(md5sum $HOME/cached/environment.yml))
 
-if [[ $condaA != $condaB ]]; then
+if [[ ! -f $HOME/cached/miniconda.sh ]] ||  [[ $condaA != $condaB ]]; then
   echo "Rebuilding conda"
   install_conda
   set_conda_path
   create_environment "new"
   cp -f environment.yml $HOME/cached/environment.yml
   cp -f $HOME/downloads/miniconda.sh $HOME/cached/miniconda.sh
-elif [[ $envA != $envB ]]; then
+elif [[ ! -f $HOME/cached/environment.yml ]] || [[ $envA != $envB ]]; then
   echo "Rebuilding env"
   set_conda_path
   create_environment "update"
