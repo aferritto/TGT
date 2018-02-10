@@ -23,6 +23,7 @@ create_environment() {
 
 ###############################################################################################
 
+echo "$PATH"
 wget http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O $HOME/downloads/miniconda.sh
 
 # Create copies of files is non-existent
