@@ -3,7 +3,6 @@ language: python
 cache:
   directories:
   - $HOME/cached
-  - $HOME/downloads
   - $HOME/miniconda
 
 install:

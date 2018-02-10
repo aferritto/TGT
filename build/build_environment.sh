@@ -25,6 +25,7 @@ create_environment() {
 echo "Initial Path"
 echo "$PATH"
 
+mkdir $HOME/downloads
 wget http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O $HOME/downloads/miniconda.sh
 
 # Compare md5 sums of new and existing files
