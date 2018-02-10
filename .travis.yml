@@ -9,6 +9,7 @@ cache:
 install:
   - bash build/build_environment.sh
   - source activate tgt
+  - which python
 
 script:
   - python -m pytest --cov=tgt tests/

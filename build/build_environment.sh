@@ -21,18 +21,20 @@ create_environment() {
 }
 
 ###############################################################################################
-
+echo "Initial Path"
 echo "$PATH"
 
 wget http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O $HOME/downloads/miniconda.sh
 
 # Create copies of files is non-existent
 if [ ! -f $HOME/cached/environment.yml ]; then
-    cp environment.yml $HOME/cached/environment.yml
+  echo "Creating cached copy of environment.yml"
+  cp environment.yml $HOME/cached/environment.yml
 fi
 
 if [ ! -f $HOME/cached/miniconda.sh ]; then
-    cp $HOME/downloads/miniconda.sh $HOME/cached/miniconda.sh
+  echo "Creating cached copy of miniconda.sh"
+  cp $HOME/downloads/miniconda.sh $HOME/cached/miniconda.sh
 fi
 
 
@@ -41,7 +43,6 @@ if ! cmp -s $HOME/downloads/miniconda.sh cached/miniconda.sh; then
   echo "Rebuilding conda"
   install_conda
   set_conda_path
-  echo "$PATH"
   create_environment "new"
 elif ! cmp -s environment.yml cached/environment.yml; then
   echo "Rebuilding env"
@@ -51,3 +52,6 @@ else
   conda "Using cached conda and env"
   set_conda_path
 fi
+
+echo "Final PATH"
+echo "$PATH"
