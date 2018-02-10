@@ -1,13 +1,11 @@
 #!/usr/bin/env bash
 
-conda_path() {
+set_conda_path() {
     export PATH="$HOME/miniconda/bin:$PATH"
 }
 install_conda() {
   rm -rf $HOME/miniconda
-  bash $HOME/miniconda.sh -b -p $HOME/miniconda
-
-
+  bash $HOME/downloads/miniconda.sh -b -p $HOME/miniconda
 }
 
 # arg 1 is "new" for new env, "update" for updating env
@@ -39,17 +37,17 @@ fi
 
 
 # Look for changes and update accordingly
-if ! cmp -s miniconda.sh cached/miniconda.sh; then
+if ! cmp -s $HOME/downloads/miniconda.sh cached/miniconda.sh; then
   echo "Rebuilding conda"
   install_conda
-  conda_path
+  set_conda_path
   echo "$PATH"
   create_environment "new"
 elif ! cmp -s environment.yml cached/environment.yml; then
   echo "Rebuilding env"
-  conda_path
+  set_conda_path
   create_environment "update"
 else
   conda "Using cached conda and env"
-  conda_path
+  set_conda_path
 fi
