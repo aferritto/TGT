@@ -7,7 +7,6 @@ cache:
   - $HOME/miniconda
 
 install:
-  - wget http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O $HOME/downloads/miniconda.sh
   - bash build/build_environment.sh
   - source activate tgt
 

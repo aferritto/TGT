@@ -24,6 +24,7 @@ create_environment() {
 ###############################################################################################
 
 echo "$PATH"
+
 wget http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O $HOME/downloads/miniconda.sh
 
 # Create copies of files is non-existent
@@ -39,6 +40,7 @@ fi
 # Look for changes and update accordingly
 if ! cmp -s miniconda.sh cached/miniconda.sh; then
   install_conda
+  echo "$PATH"
   create_environment "new"
 elif ! cmp -s environment.yml cached/environment.yml; then
   create_environment "update"
