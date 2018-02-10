@@ -9,14 +9,15 @@ install_conda() {
   fi
 }
 
+# arg 1 is "new" for new env, "update" for updating env
 create_environment() {
-    env="$HOME/miniconda/envs/tgt"
-    envs="$(conda env list)"
-
-    if [[ $envs == *"$env"* ]]; then
+    if [[ $1 == "update" ]]; then
       conda env update --prune -v -f environment.yml
-    else
+    elif [[ $1 == "new" ]]; then
       conda env create -v -f environment.yml
+    else
+      >&2 echo 'Error: arg 1 must be "new" or "update"'
+      exit 1
     fi
 }
 
@@ -37,7 +38,7 @@ fi
 # Look for changes and update accordingly
 if ! cmp -s miniconda.sh cached/miniconda.sh; then
   install_conda
-  create_environment
+  create_environment "new"
 elif ! cmp -s environment.yml cached/environment.yml; then
-  create_environment
+  create_environment "update"
 fi
