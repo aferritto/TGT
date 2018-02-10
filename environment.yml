@@ -6,12 +6,12 @@ channels:
 
 dependencies:
  - python>=3.6
- - numpy
- - matplotlib
  - h5py
  - dill
  - scikit-learn
  - scipy
+ - numpy
+ - matplotlib
  - pytest
  - pycodestyle
  - coveralls
