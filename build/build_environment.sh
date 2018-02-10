@@ -37,23 +37,28 @@ if [ ! -f $HOME/cached/miniconda.sh ]; then
   cp $HOME/downloads/miniconda.sh $HOME/cached/miniconda.sh
 fi
 
-ls -al $HOME/cached
-ls -al $HOME/downloads
-ls -al environment.yml
+#ls -al $HOME/cached
+#ls -al $HOME/downloads
+#ls -al environment.yml
 
 
 # Look for changes and update accordingly
-condaDiff=$(cmp -s $HOME/downloads/miniconda.sh $HOME/cached/miniconda.sh)
-envDiff=$(cmp -s environment.yml $HOME/cached/environment.yml)
-echo "$condaDiff"
-echo "$envDiff"
+#condaDiff=$(cmp -s $HOME/downloads/miniconda.sh $HOME/cached/miniconda.sh)
+#envDiff=$(cmp -s environment.yml $HOME/cached/environment.yml)
+#echo "$condaDiff"
+#echo "$envDiff"
 
-if [[ ! $condaDiff ]]; then
+condaA=($(md5sum $HOME/downloads/miniconda.sh))
+condaB=($(md5sum $HOME/cached/miniconda.sh))
+envA=($(md5sum environment.yml))
+envB=($(md5sum $HOME/cached/environment.yml))
+
+if [[ $condaA != $condaB ]]; then
   echo "Rebuilding conda"
   install_conda
   set_conda_path
   create_environment "new"
-elif [[ ! $envDiff ]]; then
+elif [[ $envA != $envB ]]; then
   echo "Rebuilding env"
   set_conda_path
   create_environment "update"
