@@ -39,7 +39,7 @@ fi
 
 
 # Look for changes and update accordingly
-condaDiff=$(cmp $HOME/downloads/miniconda.sh cached/miniconda.sh)
+condaDiff=$(cmp $HOME/downloads/miniconda.sh $HOME/cached/miniconda.sh)
 envDiff=$(cmp environment.yml $HOME/cached/environment.yml)
 echo "$condaDiff"
 echo "$envDiff"
