@@ -8,6 +8,7 @@ cache:
 
 install:
   - bash build/build_environment.sh
+  - export PATH="$HOME/miniconda/bin:$PATH"
   - source activate tgt
   - which python
 
