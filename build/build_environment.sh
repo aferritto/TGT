@@ -3,6 +3,7 @@
 set_conda_path() {
     export PATH="$HOME/miniconda/bin:$PATH"
 }
+
 install_conda() {
   rm -rf $HOME/miniconda
   bash $HOME/downloads/miniconda.sh -b -p $HOME/miniconda
