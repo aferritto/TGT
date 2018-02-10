@@ -40,7 +40,10 @@ fi
 
 # Look for changes and update accordingly
 condaDiff=$(cmp -s $HOME/downloads/miniconda.sh cached/miniconda.sh)
-envDiff=$(cmp -s environment.yml cached/environment.yml)
+envDiff=$(cmp -s environment.yml $HOME/cached/environment.yml)
+echo "$condaDiff"
+echo "$envDiff"
+
 if [[ ! $condaDiff ]]; then
   echo "Rebuilding conda"
   install_conda
