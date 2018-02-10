@@ -35,9 +35,9 @@ fi
 
 
 # Look for changes and update accordingly
-if ! [[ cmp -s miniconda.sh cached/miniconda.sh ]]; then
+if ! cmp -s miniconda.sh cached/miniconda.sh; then
   install_conda
   create_environment
-elif ! [[ cmp -s environment.yml cached/environment.yml ]]; then
+elif ! cmp -s environment.yml cached/environment.yml; then
   create_environment
 fi
