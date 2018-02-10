@@ -39,12 +39,14 @@ fi
 
 
 # Look for changes and update accordingly
-if ! cmp $HOME/downloads/miniconda.sh cached/miniconda.sh; then
+condaDiff=$(cmp -s $HOME/downloads/miniconda.sh cached/miniconda.sh)
+envDiff=$(cmp -s environment.yml cached/environment.yml)
+if [[ ! $condaDiff ]]; then
   echo "Rebuilding conda"
   install_conda
   set_conda_path
   create_environment "new"
-elif ! cmp environment.yml cached/environment.yml; then
+elif [[ ! $envDiff ]]; then
   echo "Rebuilding env"
   set_conda_path
   create_environment "update"
