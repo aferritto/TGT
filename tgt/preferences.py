@@ -4,11 +4,11 @@ For now, the user needs to modify their preferences in this class; eventually,
 it should be able to parse from a .txt file.
 '''
 
-# Size of terrain space
+#  Size of terrain space
 HEIGHT = 1000
 WIDTH = 1000
 
-# Perlin noise preferences
+#  Perlin noise preferences
 OCTAVES = 8
 
 '''
@@ -17,5 +17,5 @@ Update the preferenes from the file
 @ param configFile the .txt file with the preferences
 '''
 def updateFromConfig(configFile):
-    # TODO: parse the preferences from a config file
+    #  TODO: parse the preferences from a config file
     return

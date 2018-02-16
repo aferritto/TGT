@@ -15,5 +15,7 @@ dependencies:
  - pytest
  - pycodestyle
  - coveralls
- - noise
  - pytest-cov
+ - pip
+ - pip:
+  -noise

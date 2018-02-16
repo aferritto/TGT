@@ -10,19 +10,19 @@ import csv
 from matplotlib import cm
 from mpl_toolkits.mplot3d import Axes3D
 
-'''
-Plot a 2D heatmap of the data.
-@param grid a 2 dimensional array to plot
-'''
 def plot2D(grid):
+    '''
+    Plot a 2D heatmap of the data.
+    @param grid a 2 dimensional array to plot
+    '''
     plt.imshow(grid, cmap='hot', interpolation='nearest')
     plt.show()
 
-'''
-Plot a 3D heatmap of the data.
-@param grid a 2 dimensional array to plot
-'''
 def plot3D(grid):
+    '''
+    Plot a 3D heatmap of the data.
+    @param grid a 2 dimensional array to plot
+    '''
     X, Y = np.meshgrid(np.arange(0,len(grid)), np.arange(0,len(grid[0])))
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
@@ -30,11 +30,14 @@ def plot3D(grid):
     ax.set_zlim(-.5, .5)
     plt.show()
 
-'''
-Plot data based on a CSV argument
-@arg the filename of a CSV containing the heightmap data
-'''
 def main():
+    '''
+    Plot data based on a CSV argument
+    @arg the filename of a CSV containing the heightmap data
+    '''
+    if(len(sys.argv) == 0):
+        print("ERROR: Invalid arguments.\n Usage: visualizer.py [HEIGHTMAP_CSV].csv")
+        sys.exit(1)
     heightmapFile = sys.argv[1]
     heightmap = []
     with open(heightmapFile, 'r') as csvfile:
