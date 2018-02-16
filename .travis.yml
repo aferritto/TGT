@@ -1,13 +1,15 @@
 language: python
 
-before_install:
-  - wget http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O $HOME/miniconda.sh
-  - bash $HOME/miniconda.sh -b -p $HOME/miniconda
-  - export PATH="$HOME/miniconda/bin:$PATH"
+cache:
+  directories:
+  - $HOME/cached
+  - $HOME/miniconda
 
 install:
-  - conda env create -f environment.yml -v
+  - bash build/build_environment.sh
+  - export PATH="$HOME/miniconda/bin:$PATH"
   - source activate tgt
+  - which python
 
 script:
   - python -m pytest --cov=tgt tests/
