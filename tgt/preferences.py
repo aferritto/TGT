@@ -5,8 +5,8 @@ it should be able to parse from a .txt file.
 '''
 
 #  Size of terrain space
-HEIGHT = 1000
-WIDTH = 1000
+HEIGHT = 200
+WIDTH = 200
 
 #  Perlin noise preferences
 OCTAVES = 8
