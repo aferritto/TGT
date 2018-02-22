@@ -10,15 +10,16 @@ import csv
 from matplotlib import cm
 from mpl_toolkits.mplot3d import Axes3D
 
-def plot2D(grid):
+def plot2D(grid, show=True):
     '''
     Plot a 2D heatmap of the data.
     @param grid a 2 dimensional array to plot
     '''
     plt.imshow(grid, cmap='hot', interpolation='nearest')
-    plt.show()
+    if(show):
+        plt.show()
 
-def plot3D(grid):
+def plot3D(grid, show=True):
     '''
     Plot a 3D heatmap of the data.
     @param grid a 2 dimensional array to plot
@@ -28,7 +29,8 @@ def plot3D(grid):
     ax = fig.add_subplot(111, projection='3d')
     ax.plot_surface(X, Y, grid, cmap=cm.coolwarm)
     ax.set_zlim(-.5, .5)
-    plt.show()
+    if(show):
+        plt.show()
 
 def main():
     '''
