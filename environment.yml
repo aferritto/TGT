@@ -16,3 +16,4 @@ dependencies:
  - pycodestyle
  - coveralls
  - pytest-cov
+ - deap
