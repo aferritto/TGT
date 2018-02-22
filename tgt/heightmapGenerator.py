@@ -110,7 +110,7 @@ def smoothAndEnlarge(grid, newH, newW):
     biggerGrid = f(newX, newY)
     return biggerGrid
 
-def runGeneticAlgorithm(H, W, generations=10, populationSize=20, numChildren=2):
+def runGeneticAlgorithm(H, W, generations=10, populationSize=4, numChildren=2):
     population = generateOriginalPopulation(H, W, populationSize)
     numFromBest = math.ceil(populationSize/numChildren * .75)
     numFromRandom = math.floor(populationSize/numChildren * .25)
