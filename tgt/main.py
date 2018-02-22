@@ -42,23 +42,22 @@ stats.register("min", np.min)
 stats.register("max", np.max)
 
 
-if __name__ == '__main__':
+def main():
     pop = toolbox.population(n=100)
     algorithms.eaSimple(pop, toolbox, cxpb=0.5, mutpb=0.2, ngen=2, stats=stats, halloffame=hof)
 
     X = np.arange(shp[0])
     Y = np.arange(shp[1])
-    #Z = np.ndarray(buffer=hof.items[0][...], shape=shp)
+    # Z = np.ndarray(buffer=hof.items[0][...], shape=shp)
     Z = np.asarray(hof.items[0][...])
-    #mlab.surf(Z)
-    #mlab.show()
+    # mlab.surf(Z)
+    # mlab.show()
 
-    #plt.imshow(Z, cmap='viridis')
-    #plt.show()
+    # plt.imshow(Z, cmap='viridis')
+    # plt.show()
 
 
-    X,Y = np.meshgrid(X,Y)
-
+    X, Y = np.meshgrid(X, Y)
 
     fig = plt.figure()
     ax = fig.gca(projection='3d')
@@ -75,3 +74,7 @@ if __name__ == '__main__':
     im = ax2.imshow(Z, cmap='hot')
     fig2.show()
     """
+
+
+if __name__ == '__main__':
+    main()
