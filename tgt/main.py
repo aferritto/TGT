@@ -7,7 +7,10 @@ from functools import partial
 from matplotlib import cm
 from matplotlib import pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
-#from matplotlib.ticker import LinearLocator, FormatStrFormatter
+from tgt import heightmapGenerator
+from tgt import visualizer as vis
+from tgt import preferences as pref
+# from matplotlib.ticker import LinearLocator, FormatStrFormatter
 
 from tgt import helpers
 
@@ -16,23 +19,25 @@ mu = 50
 lmda = 100
 cxpb = 0.7
 mutpb = 0.2
-shp = (2048, 2048)
+shp = (200, 200)
 
-init_rand = partial(np.random.rand, *shp)
+pkw = {}
 
-creator.create("FitnessMax", base.Fitness, weights=(4.0, -2.5, -1.0, -1.0))
+init_rand = partial(heightmapGenerator.generate_basic_perlin_noise, *shp, **pkw)
+
+creator.create("FitnessMax", base.Fitness, weights=(1,))
 creator.create("Individual", np.ndarray, fitness=creator.FitnessMax)
 
 toolbox = base.Toolbox()
 hof = tools.HallOfFame(3, similar=np.allclose)
 
-toolbox.register("individual", helpers.init_once, creator.Individual, init_rand)
+toolbox.register("individual", heightmapGenerator.init_once, creator.Individual, init_rand)
 toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 
-toolbox.register("evaluate", helpers.score)
-toolbox.register("mate", helpers.crossover)
-toolbox.register("mutate", helpers.mutate)
-#toolbox.register("select", tools.selNSGA2)
+toolbox.register("evaluate", heightmapGenerator.score)
+toolbox.register("mate", heightmapGenerator.breed)
+toolbox.register("mutate", heightmapGenerator.mutate)
+# toolbox.register("select", tools.selNSGA2)
 toolbox.register("select", tools.selTournament, tournsize=3)
 
 stats = tools.Statistics(lambda ind: ind.fitness.values)
@@ -56,7 +61,6 @@ def main():
     # plt.imshow(Z, cmap='viridis')
     # plt.show()
 
-
     X, Y = np.meshgrid(X, Y)
 
     fig = plt.figure()
@@ -67,7 +71,7 @@ def main():
     # Add a color bar which maps values to colors.
     fig.colorbar(surf, shrink=0.5, aspect=5)
 
-    fig.show()
+    plt.show()
     """
     fig2 = plt.figure()
     ax2 = fig2.add_subplot(111)
@@ -78,3 +82,21 @@ def main():
 
 if __name__ == '__main__':
     main()
+#=======
+'''
+The is the main file for the project.
+A user should be able to run this file after
+setting desired parameters and terrain should be generated.
+'''
+'''from tgt import heightmapGenerator as hmg
+from tgt import visualizer as vis
+from tgt import preferences as pref
+
+def main():
+    pref.updateFromConfig("dummyfile.txt") # no-op for now
+    heightmap = hmg.generate(pref.HEIGHT, pref.WIDTH, pref.OCTAVES)
+    vis.plot2D(heightmap, False)
+    vis.plot3D(heightmap, False)
+
+if __name__ == '__main__': main()
+>>>>>>> master'''
