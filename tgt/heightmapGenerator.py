@@ -9,7 +9,7 @@ import numpy as np
 import math
 import time
 
-CELL_LENGTH = 16
+from tgt.preferences import CELL_LENGTH
 
 
 def init_once(cls, fn):
@@ -49,7 +49,7 @@ def score(grid: np.ndarray) -> tuple:
     cell_fitness = (average_cell_consistency - cell_height_variance)'''
     cell_fitness = np.sum(grid)
     #print("Time spent scoring:", time.time()-start)
-    return np.array([cell_fitness, ])
+    return np.array([cell_fitness, ]),
 
 
 def generate_original_population(h, w, pop_size):

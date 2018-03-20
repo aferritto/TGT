@@ -11,6 +11,8 @@ WIDTH = 200
 #  Perlin noise preferences
 OCTAVES = 8
 
+CELL_LENGTH = 16
+
 '''
 No-op at the moment
 Update the preferenes from the file

@@ -10,7 +10,7 @@ from mpl_toolkits.mplot3d import Axes3D
 from tgt import heightmapGenerator
 from tgt import visualizer as vis
 from tgt import preferences as pref
-# from matplotlib.ticker import LinearLocator, FormatStrFormatter
+import tgt.preferences as pref
 
 from tgt import helpers
 
@@ -19,8 +19,9 @@ mu = 50
 lmda = 100
 cxpb = 0.7
 mutpb = 0.2
-shp = (200, 200)
+shp = (pref.HEIGHT, pref.WIDTH)
 
+## keywork arguments to fix
 pkw = {}
 
 init_rand = partial(heightmapGenerator.generate_basic_perlin_noise, *shp, **pkw)
@@ -37,7 +38,6 @@ toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 toolbox.register("evaluate", heightmapGenerator.score)
 toolbox.register("mate", heightmapGenerator.breed)
 toolbox.register("mutate", heightmapGenerator.mutate)
-# toolbox.register("select", tools.selNSGA2)
 toolbox.register("select", tools.selTournament, tournsize=3)
 
 stats = tools.Statistics(lambda ind: ind.fitness.values)
