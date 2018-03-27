@@ -100,13 +100,20 @@ def breed_population(breeders, number_of_children):
     return np.array(next_population)
 
 
-def mutate(grid: np.ndarray, p_drop: float=0.01) -> tuple:
+def mutate(grid: np.ndarray) -> tuple:
     start = time.time()
     h = grid.shape[0]
     w = grid.shape[1]
     mutation_value = generate_basic_perlin_noise(h, w, octaves=4)
     mutation_value = (mutation_value * .1) - .05
-    grid[...] = grid.copy() + mutation_value
+    #grid[...] = grid.copy() + mutation_value
+    grid[...] = grid + mutation_value
+
+    mult = np.random.normal(0, np.sqrt(np.std(grid)))
+    mult = int(mult)
+    mask = mult * np.random.rand(*grid.shape)
+    grid[...] = grid + mask
+
     # print("Time spent mutating:", time.time()-start)
     return grid,
 
@@ -168,3 +175,12 @@ def generate(H, W, octaves=1):
     # grid = generateBasicPerlinNoise(H, W, octaves)
     # grid = smoothAndEnlarge(grid, H*2, W*2)
     # return grid
+
+
+def perlin_rand(*args, **kwargs):
+    grid = 10000*generate_basic_perlin_noise(*args,**kwargs)
+
+    mult = np.random.normal(0, 3*np.std(grid))
+    mult = int(mult)
+    mask = mult * np.random.rand(*grid.shape)
+    return grid + mask

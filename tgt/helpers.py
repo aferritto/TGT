@@ -19,24 +19,17 @@ def crossover(par1: np.ndarray, par2: np.ndarray) -> tuple:
     return par2, par2
 
 
-def mutate(individual: np.ndarray, p_drop: float=0.01) -> tuple:
+def mutate(individual: np.ndarray) -> tuple:
     """
     :param individual: candidate to mutate
-    :param p_drop: probability to drop value
     :return: mutated individual
     """
 
-    if not (0 <= p_drop <= 1):
-        msg = "Expected 0 <= p_drop <= 1, not: {0}".format(p_drop)
-        raise ValueError(msg)
-
     mult = np.random.normal(0, np.sqrt(np.std(individual)))
     mult = int(mult)
+    mask = mult * np.random.rand(*individual.shape)
 
-    mask1 = np.random.rand(*individual.shape) >= p_drop
-    mask2 = mult * np.random.rand(*individual.shape)
-
-    individual[...] = mask1*individual + mask2
+    individual[...] = individual + mask
     return individual,
 
 
