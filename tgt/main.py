@@ -9,62 +9,58 @@ from matplotlib import pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from tgt import heightmapGenerator
 from tgt import visualizer as vis
-from tgt import preferences as pref
-import tgt.preferences as pref
-import multiprocessing
+from tgt import preferences as prefs
 from scipy.ndimage import uniform_filter
-
 from tgt import helpers
 
-ngen = 50
-mu = 50
-lmda = 100
-cxpb = 0.7
-mutpb = 0.2
-shp = (pref.HEIGHT, pref.WIDTH)
 
-## keywork arguments to fix
-pkw = {}
-
-init_rand = partial(heightmapGenerator.perlin_rand, *shp, **pkw)
+init_rand = partial(heightmapGenerator.perlin_rand, *prefs.SHAPE, **prefs.PKW)
 
 creator.create("FitnessMax", base.Fitness, weights=(10,1,2,2))
 creator.create("Individual", np.ndarray, fitness=creator.FitnessMax)
 
 toolbox = base.Toolbox()
-hof = tools.HallOfFame(1, similar=np.allclose)
-
 toolbox.register("individual", heightmapGenerator.init_once, creator.Individual, init_rand)
 toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 
 toolbox.register("evaluate", helpers.score)
 toolbox.register("mate", heightmapGenerator.breed)
 toolbox.register("mutate", heightmapGenerator.mutate)
-toolbox.register("select", tools.selTournament, tournsize=10)
-
-stats = tools.Statistics(lambda ind: ind.fitness.values)
-stats.register("avg", np.mean)
-stats.register("std", np.std)
-stats.register("min", np.min)
-stats.register("max", np.max)
+toolbox.register("select", tools.selNSGA2)
 
 
 def main():
-    pop = toolbox.population(n=100)
-    #pool = multiprocessing.Pool()
-    #toolbox.register("map", pool.map)
-    algorithms.eaSimple(pop, toolbox, cxpb=cxpb, mutpb=mutpb, ngen=ngen, stats=stats, halloffame=hof)
 
-    X = np.arange(shp[0])
-    Y = np.arange(shp[1])
-    # Z = np.ndarray(buffer=hof.items[0][...], shape=shp)
+    hof = tools.HallOfFame(1, similar=np.allclose)
+
+    stats = tools.Statistics(lambda ind: ind.fitness.values)
+    stats.register("avg", np.mean)
+    stats.register("std", np.std)
+    stats.register("min", np.min)
+    stats.register("max", np.max)
+
+    if prefs.parallelize:
+        # For multiprocessing module parallelism
+        import multiprocessing
+        print("Using parallelization on {0} logical processors.".format(multiprocessing.cpu_count()))
+        pool = multiprocessing.Pool()
+        toolbox.register("map", pool.map)
+
+        # For SCOOP parallelism (run python -m scoop main.py)
+        # from scoop import futures
+        # toolbox.register("map", futures.map)
+    else:
+        print("Not using parallelism.  Set parallelize = True in preferences.py to enable.")
+
+    pop = toolbox.population(n=prefs.POP)
+
+    algorithms.eaMuCommaLambda(pop, toolbox, mu=prefs.MU, lambda_=prefs.LAMBDA, cxpb=prefs.CXPB, mutpb=prefs.MUTPB,
+                               ngen=prefs.NGEN, stats=stats, halloffame=hof)
+
+    X = np.arange(prefs.SHAPE[0])
+    Y = np.arange(prefs.SHAPE[1])
     Z = np.asarray(hof.items[0][...])
     Z = uniform_filter(Z, size=12)
-    # mlab.surf(Z)
-    # mlab.show()
-
-    # plt.imshow(Z, cmap='viridis')
-    # plt.show()
 
     X, Y = np.meshgrid(X, Y)
 
@@ -77,31 +73,6 @@ def main():
     fig.colorbar(surf, shrink=0.5, aspect=5)
 
     plt.show()
-    """
-    fig2 = plt.figure()
-    ax2 = fig2.add_subplot(111)
-    im = ax2.imshow(Z, cmap='hot')
-    fig2.show()
-    """
-
 
 if __name__ == '__main__':
     main()
-#=======
-'''
-The is the main file for the project.
-A user should be able to run this file after
-setting desired parameters and terrain should be generated.
-'''
-'''from tgt import heightmapGenerator as hmg
-from tgt import visualizer as vis
-from tgt import preferences as pref
-
-def main():
-    pref.updateFromConfig("dummyfile.txt") # no-op for now
-    heightmap = hmg.generate(pref.HEIGHT, pref.WIDTH, pref.OCTAVES)
-    vis.plot2D(heightmap, False)
-    vis.plot3D(heightmap, False)
-
-if __name__ == '__main__': main()
->>>>>>> master'''
