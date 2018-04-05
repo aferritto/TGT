@@ -44,15 +44,10 @@ def main():
     stats.register("max", np.max)
 
     if prefs.parallelize:
-        # For multiprocessing module parallelism
         import multiprocessing
         print("Using parallelization on {0} logical processors.".format(multiprocessing.cpu_count()))
         pool = multiprocessing.Pool()
         toolbox.register("map", pool.map)
-
-        # For SCOOP parallelism (run python -m scoop main.py)
-        # from scoop import futures
-        # toolbox.register("map", futures.map)
     else:
         print("Not using parallelism.  Set parallelize = True in preferences.py to enable.")
 
