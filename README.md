@@ -11,6 +11,8 @@ Stay tuned for issues as they become available for opportunities to contribute.
 
 ## Installing and Updating the Conda Env
 
+If you do not already have a Conda distribution of Python, you should install one from [here](https://conda.io/docs/user-guide/install/download.html).  This project utilizes Python 3.
+
 To install the conda environment for this project you can run ```conda env create -f environment.yml```.
 
 To update an existing environment for this project you can run ```conda env update --prune -f environment.yml```.
