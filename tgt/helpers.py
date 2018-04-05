@@ -51,6 +51,12 @@ def score(individual: np.ndarray) -> tuple:
 
 
 def loc_glbl_var(individual: np.ndarray) -> float:
+    """
+    Computes score as function of quadrant and global variance
+    :param individual: candidate to score
+    :return: sum of quadrant variance - 5*global variance
+    """
+
     mids = list(map(lambda x: int(x/2), individual.shape))
     s1 = np.var(individual[:mids[0], :mids[1]])
     s2 = np.var(individual[:mids[0], mids[1]:])
@@ -61,16 +67,30 @@ def loc_glbl_var(individual: np.ndarray) -> float:
 
 
 def sea_level(individual: np.ndarray, target: float=25.0) ->float:
+    """
+    :param individual: candidate to score
+    :param target: ideal sea level height
+    :return: |individual - target|_2
+    """
 
-    #return np.einsum('ij,ij->i', individual - target, individual - target)**0.5
     return np.linalg.norm(individual - target)
 
 
 def bedrock(individual: np.ndarray, target: float=-2000.0) -> float:
+    """
+    :param individual: candidate to score
+    :param target: ideal bedrock height
+    :return: |min(individual) - target|_2
+    """
 
     return np.linalg.norm(np.min(individual) - target)
 
 
-def mountains(individal: np.ndarray, target: float=3500.0) -> float:
+def mountains(individual: np.ndarray, target: float=3500.0) -> float:
+    """
+    :param individual: candidate to score
+    :param target: ideal mountains heights
+    :return: |max(individual) - target|_2
+    """
 
-    return np.linalg.norm(np.max(individal) - target)
+    return np.linalg.norm(np.max(individual) - target)

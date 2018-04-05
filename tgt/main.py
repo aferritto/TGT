@@ -30,6 +30,10 @@ toolbox.register("select", tools.selNSGA2)
 
 
 def main():
+    """
+    The main function of the TGT application
+    :return: None
+    """
 
     hof = tools.HallOfFame(1, similar=np.allclose)
 
