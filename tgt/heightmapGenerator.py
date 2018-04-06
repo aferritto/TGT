@@ -101,16 +101,16 @@ def breed_population(breeders, number_of_children):
 
 
 def mutate(grid: np.ndarray) -> tuple:
-    start = time.time()
-    h = grid.shape[0]
-    w = grid.shape[1]
-    mutation_value = generate_basic_perlin_noise(h, w, octaves=4)
-    mutation_value = (mutation_value * .1) - .05
+    #start = time.time()
+    #h = grid.shape[0]
+    #w = grid.shape[1]
+    #mutation_value = generate_basic_perlin_noise(h, w, octaves=2)
+    #mutation_value = (mutation_value * .05) - .05
     #grid[...] = grid.copy() + mutation_value
-    grid[...] = grid + mutation_value
+    #grid[...] = grid + mutation_value
 
     mult = np.random.normal(0, np.sqrt(np.std(grid)))
-    mult = int(mult)
+    mult = 100 * int(mult)
     mask = mult * np.random.rand(*grid.shape)
     grid[...] = grid + mask
 
@@ -125,7 +125,8 @@ def mutate_population(population, mutation_chance):
     return population
 
 
-def generate_basic_perlin_noise(h, w, octaves=8, persistence=0.5, lacunarity=2.0, repeatx=1024, repeaty=1024, base=0):
+def generate_basic_perlin_noise(h, w, octaves=8, persistence=0.5, lacunarity=2.0,
+                                repeatx=1024, repeaty=1024, base=0, dtype=np.float32):
     """
     :param h:
     :param w:
@@ -138,7 +139,7 @@ def generate_basic_perlin_noise(h, w, octaves=8, persistence=0.5, lacunarity=2.0
     :return:
     """
     random.seed(None)
-    grid = np.zeros((h,w))
+    grid = np.zeros((h,w), dtype=dtype)
     for i in range(h):
         for j in range(w):
             grid[i, j] = noise.pnoise2(i/float(h), j/float(w), octaves, persistence, lacunarity, repeatx, repeaty, base)
@@ -178,9 +179,9 @@ def generate(H, W, octaves=1):
 
 
 def perlin_rand(*args, **kwargs):
-    grid = 10000*generate_basic_perlin_noise(*args,**kwargs)
+    grid = 10000 * generate_basic_perlin_noise(*args,**kwargs)
 
     mult = np.random.normal(0, 3*np.std(grid))
-    mult = int(mult)
+    mult = 100 * int(mult)
     mask = mult * np.random.rand(*grid.shape)
     return grid + mask

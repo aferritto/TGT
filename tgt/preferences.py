@@ -5,8 +5,8 @@ it should be able to parse from a .txt file.
 """
 
 #  Size of terrain space
-HEIGHT = 512
-WIDTH = 512
+HEIGHT = 2048
+WIDTH = 2048
 
 #  Perlin noise preferences
 OCTAVES = 8
@@ -27,12 +27,12 @@ Genetic Algorithm Parameters
 '''
 POP = 300
 NGEN = 10
-MU = 50
-LAMBDA = 100
+MU = 100
+LAMBDA = 150
 CXPB = 0.65
 MUTPB = 0.25
 SHAPE = (HEIGHT, WIDTH)
-PKW = {} # partial function kwargs
+PKW = {"octaves": OCTAVES}  # partial function kwargs
 
 '''
 Whether or not to parallelize the computation
