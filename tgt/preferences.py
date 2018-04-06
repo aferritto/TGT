@@ -33,6 +33,7 @@ CXPB = 0.65
 MUTPB = 0.25
 SHAPE = (HEIGHT, WIDTH)
 PKW = {"octaves": OCTAVES}  # partial function kwargs
+WEIGHTS = (10, 1, 2, 2)  # 4-tuple of real numbers (positive for maximize, negative for minimize)
 
 '''
 Whether or not to parallelize the computation

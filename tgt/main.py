@@ -16,7 +16,7 @@ from tgt import helpers
 
 init_rand = partial(heightmapGenerator.perlin_rand, *prefs.SHAPE, **prefs.PKW)
 
-creator.create("FitnessMax", base.Fitness, weights=(10,1,2,2))
+creator.create("FitnessMax", base.Fitness, weights=prefs.WEIGHTS)
 creator.create("Individual", np.ndarray, fitness=creator.FitnessMax)
 
 toolbox = base.Toolbox()

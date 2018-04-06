@@ -179,7 +179,7 @@ def generate(H, W, octaves=1):
 
 
 def perlin_rand(*args, **kwargs):
-    grid = 10000 * generate_basic_perlin_noise(*args,**kwargs)
+    grid = 1000 * generate_basic_perlin_noise(*args,**kwargs)
 
     mult = np.random.normal(0, 3*np.std(grid))
     mult = 100 * int(mult)
