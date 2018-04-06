@@ -59,7 +59,7 @@ def main():
     X = np.arange(prefs.SHAPE[0])
     Y = np.arange(prefs.SHAPE[1])
     Z = np.asarray(hof.items[0][...])
-    Z = uniform_filter(Z, size=12)
+    Z = uniform_filter(Z, size=prefs.FILTER_SIZE)
 
     X, Y = np.meshgrid(X, Y)
 

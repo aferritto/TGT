@@ -39,3 +39,8 @@ Whether or not to parallelize the computation
 Note: may decrease performance due to communication overhead
 '''
 parallelize = False
+
+'''
+Postprocessing parameters
+'''
+FILTER_SIZE = 12
