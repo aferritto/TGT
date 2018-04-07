@@ -5,8 +5,8 @@ it should be able to parse from a .txt file.
 """
 
 #  Size of terrain space
-HEIGHT = 2048
-WIDTH = 2048
+HEIGHT = 512
+WIDTH = 512
 
 #  Perlin noise preferences
 OCTAVES = 8
@@ -25,15 +25,15 @@ def updateFromConfig(configFile):
 '''
 Genetic Algorithm Parameters
 '''
-POP = 300
-NGEN = 10
-MU = 100
-LAMBDA = 150
+POP = 150
+NGEN = 50
+MU = 50
+LAMBDA = 75
 CXPB = 0.65
 MUTPB = 0.25
 SHAPE = (HEIGHT, WIDTH)
 PKW = {"octaves": OCTAVES}  # partial function kwargs
-WEIGHTS = (10, 1, 2, 2)  # 4-tuple of real numbers (positive for maximize, negative for minimize)
+WEIGHTS = (10, -1, -2, -2)  # 4-tuple of real numbers (positive for maximize, negative for minimize)
 
 '''
 Whether or not to parallelize the computation

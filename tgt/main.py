@@ -53,7 +53,7 @@ def main():
 
     pop = toolbox.population(n=prefs.POP)
 
-    algorithms.eaMuCommaLambda(pop, toolbox, mu=prefs.MU, lambda_=prefs.LAMBDA, cxpb=prefs.CXPB, mutpb=prefs.MUTPB,
+    algorithms.eaMuPlusLambda(pop, toolbox, mu=prefs.MU, lambda_=prefs.LAMBDA, cxpb=prefs.CXPB, mutpb=prefs.MUTPB,
                                ngen=prefs.NGEN, stats=stats, halloffame=hof)
 
     X = np.arange(prefs.SHAPE[0])

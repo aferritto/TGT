@@ -57,12 +57,12 @@ def loc_glbl_var(individual: np.ndarray) -> float:
     :return: sum of quadrant variance - 5*global variance
     """
 
-    mids = list(map(lambda x: int(x/2), individual.shape))
+    mids = tuple(map(lambda x: int(x/2), individual.shape))
     s1 = np.var(individual[:mids[0], :mids[1]])
     s2 = np.var(individual[:mids[0], mids[1]:])
     s3 = np.var(individual[mids[0]:, :mids[1]])
     s4 = np.var(individual[mids[0]:, mids[1]:])
-    result = s1 + s2 + s3 + s4 - 5*np.var(individual[...])
+    result = s1 + s2 + s3 + s4 - 10*np.var(individual[...])
     return float(result)
 
 
