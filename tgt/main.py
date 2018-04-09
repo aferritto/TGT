@@ -67,6 +67,7 @@ def main():
     ax = fig.gca(projection='3d')
     surf = ax.plot_surface(X, Y, Z, cmap=cm.coolwarm,
                            linewidth=0, antialiased=False)
+    vis.createGreyscaleImage(Z)
 
     # Add a color bar which maps values to colors.
     fig.colorbar(surf, shrink=0.5, aspect=5)
