@@ -1,6 +1,6 @@
-'''
+"""
 Tests main. The best way to test main is the run it, however.
-'''
+"""
 import pytest
 from tgt import main
 
