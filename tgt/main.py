@@ -16,12 +16,15 @@ from tgt import helpers
 
 init_rand = partial(heightmapGenerator.perlin_rand, *prefs.SHAPE, **prefs.PKW)
 
-creator.create("FitnessMax", base.Fitness, weights=(10,1,2,2))
+creator.create("FitnessMax", base.Fitness, weights=prefs.WEIGHTS)
 creator.create("Individual", np.ndarray, fitness=creator.FitnessMax)
 
 toolbox = base.Toolbox()
-toolbox.register("individual", heightmapGenerator.init_once, creator.Individual, init_rand)
-toolbox.register("population", tools.initRepeat, list, toolbox.individual)
+toolbox.register("individual", heightmapGenerator.init_once,
+                 creator.Individual, init_rand)
+
+toolbox.register("population", tools.initRepeat,
+                 list, toolbox.individual)
 
 toolbox.register("evaluate", helpers.score)
 toolbox.register("mate", heightmapGenerator.breed)
@@ -45,34 +48,40 @@ def main():
 
     if prefs.parallelize:
         import multiprocessing
-        print("Using parallelization on {0} logical processors.".format(multiprocessing.cpu_count()))
+
+        print("Using parallelization on {0} logical processors.".format(
+            multiprocessing.cpu_count()))
+
         pool = multiprocessing.Pool()
         toolbox.register("map", pool.map)
     else:
-        print("Not using parallelism.  Set parallelize = True in preferences.py to enable.")
+        print("Not using parallelism." +
+              "Set parallelize = True in preferences.py to enable.")
 
     pop = toolbox.population(n=prefs.POP)
 
-    algorithms.eaMuCommaLambda(pop, toolbox, mu=prefs.MU, lambda_=prefs.LAMBDA, cxpb=prefs.CXPB, mutpb=prefs.MUTPB,
-                               ngen=prefs.NGEN, stats=stats, halloffame=hof)
+    algorithms.eaMuPlusLambda(pop, toolbox, mu=prefs.MU,
+                              lambda_=prefs.LAMBDA, cxpb=prefs.CXPB,
+                              mutpb=prefs.MUTPB, ngen=prefs.NGEN,
+                              stats=stats, halloffame=hof)
 
     X = np.arange(prefs.SHAPE[0])
     Y = np.arange(prefs.SHAPE[1])
     Z = np.asarray(hof.items[0][...])
-    Z = uniform_filter(Z, size=12)
+    Z = uniform_filter(Z, size=prefs.FILTER_SIZE)
 
     X, Y = np.meshgrid(X, Y)
 
-    fig = plt.figure()
-    ax = fig.gca(projection='3d')
-    surf = ax.plot_surface(X, Y, Z, cmap=cm.coolwarm,
-                           linewidth=0, antialiased=False)
-    vis.createGreyscaleImage(Z)
+    # do not plot when running unit tests
+    if not prefs.UNIT_TEST:
+        fig = plt.figure()
+        ax = fig.gca(projection='3d')
+        surf = ax.plot_surface(X, Y, Z, cmap=cm.coolwarm,
+                               linewidth=0, antialiased=False)
+        vis.create_greyscale_image(Z)
 
-    # Add a color bar which maps values to colors.
-    fig.colorbar(surf, shrink=0.5, aspect=5)
+        plt.show()
 
-    plt.show()
 
 if __name__ == '__main__':
     main()

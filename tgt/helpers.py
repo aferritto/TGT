@@ -57,16 +57,16 @@ def loc_glbl_var(individual: np.ndarray) -> float:
     :return: sum of quadrant variance - 5*global variance
     """
 
-    mids = list(map(lambda x: int(x/2), individual.shape))
+    mids = tuple(map(lambda x: int(x/2), individual.shape))
     s1 = np.var(individual[:mids[0], :mids[1]])
     s2 = np.var(individual[:mids[0], mids[1]:])
     s3 = np.var(individual[mids[0]:, :mids[1]])
     s4 = np.var(individual[mids[0]:, mids[1]:])
-    result = s1 + s2 + s3 + s4 - 5*np.var(individual[...])
+    result = s1 + s2 + s3 + s4 - 10*np.var(individual[...])
     return float(result)
 
 
-def sea_level(individual: np.ndarray, target: float=25.0) ->float:
+def sea_level(individual: np.ndarray, target: float = 25.0) ->float:
     """
     :param individual: candidate to score
     :param target: ideal sea level height
@@ -76,7 +76,7 @@ def sea_level(individual: np.ndarray, target: float=25.0) ->float:
     return np.linalg.norm(individual - target)
 
 
-def bedrock(individual: np.ndarray, target: float=-2000.0) -> float:
+def bedrock(individual: np.ndarray, target: float = -2000.0) -> float:
     """
     :param individual: candidate to score
     :param target: ideal bedrock height
@@ -86,7 +86,7 @@ def bedrock(individual: np.ndarray, target: float=-2000.0) -> float:
     return np.linalg.norm(np.min(individual) - target)
 
 
-def mountains(individual: np.ndarray, target: float=3500.0) -> float:
+def mountains(individual: np.ndarray, target: float = 3500.0) -> float:
     """
     :param individual: candidate to score
     :param target: ideal mountains heights
