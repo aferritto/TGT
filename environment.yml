@@ -18,5 +18,6 @@ dependencies:
  - pytest-cov
  - deap
  - pip
+ - pillow
  - pip:
    - noise

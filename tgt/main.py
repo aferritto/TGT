@@ -74,13 +74,13 @@ def main():
 
     # do not plot when running unit tests
     if not prefs.UNIT_TEST:
-      fig = plt.figure()
-      ax = fig.gca(projection='3d')
-      surf = ax.plot_surface(X, Y, Z, cmap=cm.coolwarm,
-                             linewidth=0, antialiased=False)
-      vis.createGreyscaleImage(Z)
+        fig = plt.figure()
+        ax = fig.gca(projection='3d')
+        surf = ax.plot_surface(X, Y, Z, cmap=cm.coolwarm,
+                               linewidth=0, antialiased=False)
+        vis.create_greyscale_image(Z)
 
-      plt.show()
+        plt.show()
 
 
 if __name__ == '__main__':

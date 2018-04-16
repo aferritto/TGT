@@ -1,9 +1,10 @@
-'''
+"""
 This program will visualize a terrain given by a heightmap in
 a CSV file using Matplotlib.  It generates two views: a 2D
 heightmap and a 3D terrain structure.  As an argument,
 it should be given the heightmap CSV
-'''
+"""
+
 import sys
 import matplotlib.pyplot as plt
 import numpy as np
@@ -41,13 +42,13 @@ def plot3D(grid, show=True):
         plt.show()
 
 
-def createGreyscaleImage(grid):
-    grid = 255 * np.true_divide(grid - np.min(grid), 
+def create_greyscale_image(grid):
+    grid = 255 * np.true_divide(grid - np.min(grid),
                                 np.max(grid) - np.min(grid))
     img = Image.fromarray(grid.astype(np.uint8))
     img.save("grid.png")
-    
-    
+
+
 def main():
     """
     Plot data based on a CSV argument
