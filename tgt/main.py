@@ -74,15 +74,13 @@ def main():
 
     # do not plot when running unit tests
     if not prefs.UNIT_TEST:
-        fig = plt.figure()
-        ax = fig.gca(projection='3d')
-        surf = ax.plot_surface(X, Y, Z, cmap=cm.coolwarm,
-                               linewidth=0, antialiased=False)
+      fig = plt.figure()
+      ax = fig.gca(projection='3d')
+      surf = ax.plot_surface(X, Y, Z, cmap=cm.coolwarm,
+                             linewidth=0, antialiased=False)
+      vis.createGreyscaleImage(Z)
 
-        # Add a color bar which maps values to colors.
-        fig.colorbar(surf, shrink=0.5, aspect=5)
-
-        plt.show()
+      plt.show()
 
 
 if __name__ == '__main__':

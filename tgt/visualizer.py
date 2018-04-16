@@ -10,6 +10,7 @@ import numpy as np
 import csv
 from matplotlib import cm
 from mpl_toolkits.mplot3d import Axes3D
+from PIL import Image
 
 
 def plot2D(grid, show=True):
@@ -40,6 +41,13 @@ def plot3D(grid, show=True):
         plt.show()
 
 
+def createGreyscaleImage(grid):
+    grid = 255 * np.true_divide(grid - np.min(grid), 
+                                np.max(grid) - np.min(grid))
+    img = Image.fromarray(grid.astype(np.uint8))
+    img.save("grid.png")
+    
+    
 def main():
     """
     Plot data based on a CSV argument
