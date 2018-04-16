@@ -18,9 +18,9 @@ def plot2D(grid, show=True):
     @param grid a 2 dimensional array to plot
     """
 
-    plt.imshow(grid, cmap='hot', interpolation='nearest')
-
     if show:
+        plt.imshow(grid, cmap='hot', interpolation='nearest')
+
         plt.show()
 
 
@@ -30,12 +30,13 @@ def plot3D(grid, show=True):
     @param grid a 2 dimensional array to plot
     """
 
-    X, Y = np.meshgrid(np.arange(0, len(grid)), np.arange(0, len(grid[0])))
-    fig = plt.figure()
-    ax = fig.add_subplot(111, projection='3d')
-    ax.plot_surface(X, Y, grid, cmap=cm.coolwarm)
-    ax.set_zlim(-.5, .5)
     if show:
+        X, Y = np.meshgrid(np.arange(0, len(grid)), np.arange(0, len(grid[0])))
+        fig = plt.figure()
+        ax = fig.add_subplot(111, projection='3d')
+        ax.plot_surface(X, Y, grid, cmap=cm.coolwarm)
+        ax.set_zlim(-.5, .5)
+
         plt.show()
 
 

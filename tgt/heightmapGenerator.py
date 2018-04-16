@@ -81,7 +81,7 @@ def breed(member1: np.ndarray, member2: np.ndarray) -> tuple:
     w = member1.shape[1]
 
     # weightings1 = generate_basic_perlin_noise(h, w, octaves=2)
-    weightings1 = np.random.rand(h,w)
+    weightings1 = np.random.rand(h, w)
     max_weight = np.max(weightings1)
     min_weight = np.min(weightings1)
     weightings1 = (weightings1 - min_weight) / \
@@ -90,7 +90,7 @@ def breed(member1: np.ndarray, member2: np.ndarray) -> tuple:
                    (member2.copy() * (1-weightings1))
 
     # weightings2 = generate_basic_perlin_noise(h, h, octaves=2)
-    weightings2 = np.random.rand(h,w)
+    weightings2 = np.random.rand(h, w)
     max_weight = np.max(weightings2)
     min_weight = np.min(weightings2)
     weightings2 = (weightings2 - min_weight) / \
