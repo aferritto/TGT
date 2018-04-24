@@ -120,29 +120,6 @@ def analyze_cell(grid, x, y):
     return total_diff, (total_height / (CELL_LENGTH + 1)**2)
 
 
-def generate_original_population(h, w, pop_size):
-    population = np.array(
-        [generate_basic_perlin_noise(h, w) for _ in range(pop_size)]
-    )
-    return population
-
-
-def compute_population_fitness(population):
-    population_fitness = np.array([score(member) for member in population])
-    order = np.argsort(population_fitness)
-    return population[order]
-
-
-def select_from_population(sorted_population, num_from_top, num_from_random):
-    next_generation = []
-    for i in range(num_from_top):
-        next_generation.append(sorted_population[i])
-    for i in range(num_from_random):
-        next_generation.append(random.choice(sorted_population)[0])
-    random.shuffle(next_generation)
-    return np.array(next_generation)
-
-
 def crossover2(member1: np.ndarray, member2: np.ndarray) -> tuple:
     h = member1.shape[0]
     w = member1.shape[1]
@@ -166,15 +143,6 @@ def crossover2(member1: np.ndarray, member2: np.ndarray) -> tuple:
     return member1, member2
 
 
-def breed_population(breeders, number_of_children):
-    next_population = []
-    for i in range(math.ceil(len(breeders)/2)):
-        for j in range(number_of_children):
-            next_population.append(breed(breeders[i],
-                                         breeders[len(breeders)-1-i]))
-    return np.array(next_population)
-
-
 def mutate2(grid: np.ndarray) -> tuple:
     """
     :param grid: heightmap to mutate
@@ -187,13 +155,6 @@ def mutate2(grid: np.ndarray) -> tuple:
     grid[...] = grid + mask
 
     return grid,
-
-
-def mutate_population(population, mutation_chance):
-    for i in range(len(population)):
-        if random.random() * 100 < mutation_chance:
-            population[i] = mutate(population[i])
-    return population
 
 
 def generate_basic_perlin_noise(h, w, octaves=8,
@@ -220,25 +181,6 @@ def generate_basic_perlin_noise(h, w, octaves=8,
                                        lacunarity, repeatx,
                                        repeaty, base)
     return np.array(grid)
-
-
-def run_genetic_algorithm(h, w, generations=10,
-                          population_size=4, num_children=2):
-    population = generate_original_population(h, w, population_size)
-    num_from_best = math.ceil(population_size/num_children * .75)
-    num_from_random = math.floor(population_size/num_children * .25)
-    for i in range(generations):
-        population = compute_population_fitness(population)
-        selection = select_from_population(population,
-                                           num_from_best, num_from_random)
-        children = breed_population(selection, num_children)
-        population = mutate_population(children, 0.3)
-    return population
-
-
-def generate(H, W, octaves=1):
-    population = run_genetic_algorithm(H, W)
-    return population[0]
 
 
 def perlin_rand(*args, **kwargs):
