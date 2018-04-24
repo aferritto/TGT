@@ -7,28 +7,27 @@ from functools import partial
 from matplotlib import cm
 from matplotlib import pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
-from tgt import heightmapGenerator
 from tgt import visualizer as vis
 from tgt import preferences as prefs
 from scipy.ndimage import uniform_filter
 from tgt import helpers
 
 
-init_rand = partial(heightmapGenerator.perlin_rand, *prefs.SHAPE, **prefs.PKW)
+init_rand = partial(helpers.perlin_rand, *prefs.SHAPE, **prefs.PKW)
 
 creator.create("FitnessMax", base.Fitness, weights=prefs.WEIGHTS)
 creator.create("Individual", np.ndarray, fitness=creator.FitnessMax)
 
 toolbox = base.Toolbox()
-toolbox.register("individual", heightmapGenerator.init_once,
+toolbox.register("individual", helpers.init_once,
                  creator.Individual, init_rand)
 
 toolbox.register("population", tools.initRepeat,
                  list, toolbox.individual)
 
 toolbox.register("evaluate", helpers.score)
-toolbox.register("mate", heightmapGenerator.breed)
-toolbox.register("mutate", heightmapGenerator.mutate)
+toolbox.register("mate", helpers.crossover2)
+toolbox.register("mutate", helpers.mutate2)
 toolbox.register("select", tools.selNSGA2)
 
 
